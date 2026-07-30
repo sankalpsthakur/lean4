@@ -90,6 +90,9 @@ the first two bind the arguments of the assertion itself. -/
 private def mkForInWithInvariant (invClause : Syntax) (h? : Option Syntax)
     (xs preS body σ : Expr) (loopMutVars : Array MutVar) (returnsEarly : Bool)
     (mi : MonadInfo) : DoElabM Expr := do
+  if let `(doForInvariant| invariant $_* : $ty => $_) := invClause then
+    throwErrorAt ty "The `invariant` clause takes no type ascription covering all its binders; \
+      ascribe the type on an individual binder, as in `invariant (pref : List α) suff => ...`."
   let `(doForInvariant| invariant $binders* => $invBody) := invClause | throwUnsupportedSyntax
   unless binders.size ≥ 2 do
     throwErrorAt invClause "The `invariant` clause takes at least two binders: the elements \
