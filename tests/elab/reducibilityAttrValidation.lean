@@ -101,3 +101,11 @@ set_option allowUnsafeReducibility true in
 attribute [scoped reducible] Nat.add
 
 end Foo
+
+/--
+error: failed to set `[semireducible]`, `f` is not currently `[semireducible]`, but `[irreducible]`
+
+Note: Use `set_option allowUnsafeReducibility true` to override reducibility status validation
+-/
+#guard_msgs in
+attribute [semireducible] f
