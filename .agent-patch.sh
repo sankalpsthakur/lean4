@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# Triggered by the fork-only focused patch runner.
 
 python3 - <<'PY'
 from pathlib import Path
