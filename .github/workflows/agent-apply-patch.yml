@@ -1,0 +1,20 @@
+name: Apply reducibility diagnostic patch
+
+on:
+  push:
+    branches:
+      - agent/clarify-semireducible-error
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply focused source and regression changes
+        shell: bash
+        run: bash .agent-patch.sh
