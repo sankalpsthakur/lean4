@@ -1,0 +1,21 @@
+name: Apply focused agent patch
+
+on:
+  push:
+    branches:
+      - 'agent/**'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: ${{ hashFiles('.agent-patch.sh') != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply focused branch patch
+        shell: bash
+        run: bash .agent-patch.sh
